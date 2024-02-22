@@ -1,0 +1,6 @@
+pymongo
+certifi
+flask
+python-dotenv
+pytz
+PyJWT
