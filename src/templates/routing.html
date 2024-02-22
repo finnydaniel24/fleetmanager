@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waypoints Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="/static/css/routing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+</head>
+<body>
+<div class="container">
+    <input type="text" id="searchInput" placeholder="Search drivers...">
+    <div class="cards-container" id="cardsContainer">
+        {% for route in  allRoutes %}
+            <div class="card">
+                <h2 class="driverName">{{ route['driverName'] }}</h2>
+                <p>{{ route['busNoAllotedToRoute'] }}</p>
+                <p>{{ route['areaName'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container1">
+    <div id="map"></div>
+    <div id="locateMe">
+    <a role="button" title="Locate Me" href="#">
+        <span class="fa fa-location-arrow"></span>
+    </a>
+    <!-- Content for the container -->
+</div>
+</div>
+
+<div class="container2">
+    <div id="waypoints-form" class="centered">
+        <label for="num-stages">Stages (Waypoints):</label>
+        <div id="stage-inputs">
+            <div class="stage-input">
+                <label>Stage:</label>
+                <input type="text" id="stage-name" placeholder="Enter Stage Name...">
+                <input type="text" id="stage-coordinates" placeholder="Enter Stage Coordinates">
+                <button class="custom-button" onclick="addStage()">Add</button>
+            </div>
+        </div>
+        <button type="button" class="custom-button" onclick="calculateRoute()">Calculate Route</button>
+    </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+<script src="/static/js/routing.js"></script>
+</body>
+</html>
