@@ -14,7 +14,7 @@ body {
             background-image: url('https://cdn-icons-png.flaticon.com/512/5030/5030991.png'); /* Replace with the path to your bus icon image */
             background-size: cover;
             transform-origin: center center;
-            transition: transform 1s linear; /* Add a CSS transition for smoother rotation */
+            transition: transform 0.2s linear; /* Add a CSS transition for smoother rotation */
         }
 
 #locateMe {

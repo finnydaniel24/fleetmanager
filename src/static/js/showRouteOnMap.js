@@ -16,9 +16,9 @@ const busIcon = L.divIcon({
 });
 
 // Add the bus marker with the custom divIcon
-const busMarker = L.marker([0, 0], {icon: busIcon, rotationAngle: 90}).addTo(map);
+const busMarker = L.marker([0, 0], {icon: busIcon}).addTo(map);
 busMarker.id = 'bus';
-const trail = L.polyline([], {color: 'red', weight: 4}).addTo(map);
+let trail;
 
 function showRoute(stages, allPoints, busId) {
     "use strict";
@@ -32,6 +32,7 @@ function showRoute(stages, allPoints, busId) {
             map.removeLayer(layer);
         }
     });
+    trail=L.polyline([], {color: 'red', weight: 4}).addTo(map);
     console.log(stages, allPoints);
     for (var i = 0; i < stages.length; i++) {
         var marker = L.marker(stages[i].stageCoord).addTo(map);
@@ -48,6 +49,7 @@ function showRoute(stages, allPoints, busId) {
     // Initialize an empty polyline for the bus's trail
     L.polyline(allPoints, // Outer stroke style
         {color: ' #3333ff', opacity: 0.8, weight: 5}).addTo(map);
+    rotateMapToLocation(stages[0].stageCoord);
     startTraacking(busId, stages);
 }
 
@@ -88,17 +90,17 @@ function rotateMapToLocation(targetLatLng) {
         var bearing = getBearing(busMarker.getLatLng(), targetLatLng);
 
         // Smoothly rotate the map
-        map.setView(targetLatLng, map.getZoom(), {
+        map.setView(targetLatLng, 17, {
             animate: true,
-            duration: 1,
+            duration: 0.5,
             pan: {
                 animate: true,
-                duration: 1,
+                duration: 0.5,
                 easeLinearity: 0.5,
             },
             zoom: {
                 animate: true,
-                duration: 1,
+                duration: 0.5,
             },
             bearing: bearing,
         });

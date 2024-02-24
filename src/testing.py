@@ -43,14 +43,14 @@ async def connect_to_websocket():
 
     async with websockets.connect(uri) as websocket:
         # Send a message to the server (optional)
-        await websocket.send(json.dumps({"message": "connectionRequest", "busId": "3"}))
+        await websocket.send(json.dumps({"message": "connectionRequest", "busId": "5"}))
 
         # Receive messages from the server
         i = 0
         while True and i < len(alld):
             message = await websocket.recv()
             print(f"Received message from server: {message}")
-            await websocket.send(json.dumps({"vehicleCoord": alld [ i ], "message": "New Location", "busId": "3"}))
+            await websocket.send(json.dumps({"vehicleCoord": alld [ i ], "message": "New Location", "busId": "5"}))
             i += 1
 
 
