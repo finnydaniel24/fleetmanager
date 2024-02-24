@@ -106,8 +106,10 @@ function addStage() {
     "use strict";
     var stageName = document.getElementById('stage-name').value;
     var stageCoord = document.getElementById('stage-coordinates').value;
-    allStages.push([stageName, curStage]);
+    stageCoord = stageCoord.split(",").map(parseFloat);
+    allStages.push([stageName, stageCoord]);
     updateWaypoints(stageName, stageCoord);
+    curStage = stageCoord;
     let marker = L.marker(curStage, {draggable: false}).addTo(map).bindPopup(stageName, {
         autoClose: false, closeOnClick: false
     }).openPopup();
@@ -188,6 +190,16 @@ function submitRoute() {
 function showAddRoute() {
     "use strict";
     document.getElementsByClassName('container2')[0].style.display = 'block';
+    map.eachLayer(function (layer) {
+        // Check if the layer is a marker
+        if (layer instanceof L.Marker) {
+            // Remove the marker from the map
+            map.removeLayer(layer);
+        } else if (layer instanceof L.Polyline) {
+            // Remove the polyline from the map
+            map.removeLayer(layer);
+        }
+    });
 
 // Add the marker to the map
     map.on('click', function (e) {
