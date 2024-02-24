@@ -3,7 +3,7 @@ import pymongo
 import certifi
 
 ca = certifi.where()
-client = pymongo.MongoClient('#'
+client = pymongo.MongoClient(os.environ [ 'DATABASE_URL' ]
                              , tlsCAFile=ca)
 try:
     client.admin.command('ping')

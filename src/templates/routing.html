@@ -14,26 +14,27 @@
     <input type="text" id="searchInput" placeholder="Search drivers...">
     <div class="cards-container" id="cardsContainer">
         {% for route in  allRoutes %}
-            <div class="card">
+            <div class="card" onclick="getRouteDetails({{ route['busNoAllotedToRoute'] }})">
                 <h2 class="driverName">{{ route['driverName'] }}</h2>
                 <p>{{ route['busNoAllotedToRoute'] }}</p>
                 <p>{{ route['areaName'] }}</p>
             </div>
         {% endfor %}
+        <button class="custom-button" onclick="showAddRoute();">Add Route</button>
     </div>
 </div>
 
 <div class="container1">
     <div id="map"></div>
     <div id="locateMe">
-    <a role="button" title="Locate Me" href="#">
-        <span class="fa fa-location-arrow"></span>
-    </a>
-    <!-- Content for the container -->
-</div>
+        <a role="button" title="Locate Me" href="#">
+            <span class="fa fa-location-arrow"></span>
+        </a>
+        <!-- Content for the container -->
+    </div>
 </div>
 
-<div class="container2">
+<div class="container2" style="display: none">
     <div id="waypoints-form" class="centered">
         <label for="num-stages">Stages (Waypoints):</label>
         <div id="stage-inputs">
@@ -51,5 +52,6 @@
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
 <script src="/static/js/routing.js"></script>
+<script src="/static/js/showRouteOnMap.js"></script>
 </body>
 </html>

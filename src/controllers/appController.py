@@ -2,6 +2,7 @@
 This module contains the app controller
 """
 import sys
+
 sys.path.append('src')
 import asyncio, json
 from typing import List
@@ -14,11 +15,12 @@ from middleware.customAPIsErrors import customApiError
 class AppController:
     def __init__(self):
         self.dbManager = DBManager()
+        self.STREAM_DELAY=1
 
     def createRoute(self, routeDetails):
         if not (routeDetails and routeDetails.allStages and routeDetails.routes):
             raise customApiError("Empty Stages or Route Data Not Found", 204)
-        routeDetails.allStages = [ {"stageName": x [ 1 ], "stageCoord": x [ 0 ]} for x in routeDetails.allStages ]
+        routeDetails.allStages = [ {"stageName": x [ 0 ], "stageCoord": x [ 1 ]} for x in routeDetails.allStages ]
         for i in range(len(routeDetails.routes [ 0 ] [ 'waypoints' ])): routeDetails.allStages [ i ] [
             'stageCoord' ] = [ routeDetails.routes [ 0 ] [ 'waypoints' ] [ i ] [ 'latLng' ] [ 'lat' ],
                                routeDetails.routes [ 0 ] [ 'waypoints' ] [ i ] [ 'latLng' ] [ 'lng' ] ]
@@ -38,10 +40,11 @@ class AppController:
             "driverName": routeDetails.driverName
         }
         DbOut = self.dbManager.createRoute(routeData)
-        return 'Route Created Successfully',DbOut
+        return 'Route Created Successfully', DbOut
+
     async def fetchLocationAndDirection(self, busId):
         location = await self.dbManager.fetchRouteLocation(busId)
-        busDirection = await self.dbManager.getVehicleDirection(busId)
+        busDirection = self.dbManager.getVehicleDirection(busId)
         return location, busDirection
 
     async def eventGenerator(self, busId, request):
@@ -68,6 +71,11 @@ class AppController:
 
     def getAllRoutes(self):
         return self.dbManager.getAllRoutes()
+
+    def getRouteDetails(self, busNo):
+        routeData = self.dbManager.getRouteDetails(busNo)
+        return routeData
+
 
 class VehicleToServerConnectionManager:
     def __init__(self):

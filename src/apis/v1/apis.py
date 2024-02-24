@@ -41,6 +41,12 @@ async def locationStream(request: Request, busId):
     return EventSourceResponse(appController.eventGenerator(busId, request),
                                headers={"Cache-Control": "no-cache"})
 
+@api.get('/getRouteData/')
+async def getRouteData(request:Request):
+    routeDetails = appController.getRouteDetails(request.query_params.get("busId"))
+    return routeDetails
+
+
 
 @api.websocket('/EstablishConnectionWithServer/')
 async def websocket_endpoint(websocket: WebSocket):
@@ -54,7 +60,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 await connectionManager.boardcast_to_single(
                     {"busId": msgFromVehicle [ 'busId' ], "message": "Connection Established With Server"}, websocket)
                 continue
-            if await vehicleToServerController.updateBusNewLocation(msgFromVehicle [ 'vehicleCoord' ],
+            if await appController.updateBusNewLocation(msgFromVehicle [ 'vehicleCoord' ],
                                                                     msgFromVehicle [ 'busId' ]):
                 await connectionManager.boardcast_to_single(
                     {"busId": msgFromVehicle [ 'busId' ], "message": "Location Updated"}, websocket)

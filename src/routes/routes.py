@@ -28,3 +28,8 @@ async def liveTracking(request: Request):
     allRoutes=appController.getAllRoutes()
     return templates.TemplateResponse('routing.html',{'request': request,'allRoutes':allRoutes})
 
+@routes.get('/recordLocation/{busId}')
+async def recordLocation(request:Request,busId):
+    return templates.TemplateResponse('demoRecordMobileGps.html',{"request":request,"busId":busId})
+
+
