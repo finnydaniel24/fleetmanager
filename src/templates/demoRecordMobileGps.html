@@ -137,7 +137,7 @@
         {#arr.push(new Array(cur_loc.coords.latitude,cur_loc.coords.longitude));#}
         {#document.getElementsByClassName('stages')[0].innerText=arr.length+" Stages Added";#}
         const protocol = window.location.protocol.includes('https') ? 'wss' : 'ws';
-        ws = new WebSocket(`${protocol}://127.0.0.1:8000/apis/EstablishConnectionWithServer/`);
+        ws = new WebSocket(`${protocol}://fleetmanager.onrender.com/apis/EstablishConnectionWithServer/`);
         ws.onopen = () => ws.send(JSON.stringify({"message": "connectionRequest", "busId": "{{busId}}"}));
         const accuracyThreshold = 70; // meters
 

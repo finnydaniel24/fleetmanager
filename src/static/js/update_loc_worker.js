@@ -10,7 +10,7 @@ self.addEventListener("message", function (e) {
     var source;
 
     function connect() {
-        source = new EventSource("/apis/locationStream/" + e.data);
+        source = new EventSource("https://fleetmanager.onrender.com/apis/locationStream/" + e.data);
 
         source.onopen = function (event) {
             console.log("SSE connection established.");
