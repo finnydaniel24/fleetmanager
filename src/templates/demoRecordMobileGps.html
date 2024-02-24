@@ -139,7 +139,7 @@
         const protocol = window.location.protocol.includes('https') ? 'wss' : 'ws';
         ws = new WebSocket(`${protocol}://fleetmanager.onrender.com/apis/EstablishConnectionWithServer/`);
         ws.onopen = () => ws.send(JSON.stringify({"message": "connectionRequest", "busId": "{{busId}}"}));
-        const accuracyThreshold = 70; // meters
+        const accuracyThreshold = 100; // meters
 
         navigator.geolocation.watchPosition(position => {
             if (position.coords.accuracy <= accuracyThreshold) {
