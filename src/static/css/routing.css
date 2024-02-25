@@ -8,6 +8,14 @@ body {
     width: 100%;
     height: 60vh;
 }
+.bus-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/5030/5030991.png'); /* Replace with the path to your bus icon image */
+            background-size: cover;
+            transform-origin: center center;
+            transition: transform 0.2s linear; /* Add a CSS transition for smoother rotation */
+        }
 
 #locateMe {
     position: absolute; /* Set position to absolute */
@@ -68,6 +76,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     background-color: #ffffff;
+    cursor: pointer;
 }
 
 .card h2 {

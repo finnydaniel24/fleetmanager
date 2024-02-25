@@ -1,6 +1,12 @@
 pymongo
 certifi
-flask
-python-dotenv
+fastapi
 pytz
 PyJWT
+websockets
+uvicorn
+gunicorn
+asyncio
+jinja2
+pydantic
+sse-starlette 
